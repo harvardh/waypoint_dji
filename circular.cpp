@@ -439,6 +439,11 @@ void circular::calculate_u()    { // Calculate the control command
                 circular::circular_mission.setTarget(new_target.x,new_target.y,new_target.z,0.0);
         }
         if(!circular::circular_mission.phase_started) {
+            if(circular::circular_mission.phase ==1)  {
+                vector3D new_target = circular::circular_mission.flightplan.waypts.at(circular::circular_mission.phase-1);
+                ROS_INFO_STREAM("Target height is:"<<new_target.z);
+                circular::circular_mission.setTarget(new_target.x,new_target.y,new_target.z,0.0);
+            }
             circular::circular_mission.initiate_phase();
             //std::cout<<circular_mission.flightplan.waypts.at(circular::circular_mission.phase).x<<" "<<circular_mission.flightplan.waypts.at(circular::circular_mission.phase).y<<" "<<circular_mission.flightplan.waypts.at(circular::circular_mission.phase).z<<std::endl;
         } 
